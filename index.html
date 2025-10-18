@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Humble Species — Official Store</title>
+
+  <!-- Google font (street vibe) -->
+  <link href="https://fonts.googleapis.com/css2?family=Staatliches&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo-wrap">
+      <div class="logo-placeholder">
+        <span class="logo-title">HUMBLE</span>
+        <small class="logo-sub">SPECIES</small>
+      </div>
+    </div>
+
+    <nav class="top-nav">
+      <button id="cart-toggle" aria-label="Open cart">Cart <span id="cart-count">0</span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1>HUMBLE SPECIES</h1>
+        <p class="tag">Big brain. Big hearts. Streetwear for everyday.</p>
+        <p class="contact">Contact: 0681733873 / 0688833397</p>
+        <p class="delivery">Delivery: Soweto R50 · Outside Soweto R100</p>
+      </div>
+
+      <div class="hero-right">
+        <img src="images/model-tee-jorts.jpg" alt="Humble Species models" />
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <h2>Shop</h2>
+      <div class="grid">
+        <!-- Crop Tee -->
+        <article class="product" data-id="croptee" data-name="Crop Tee" data-price="180">
+          <div class="img-wrap"><img src="images/croptee-black.jpg" alt="Crop Tee"></div>
+          <div class="meta">
+            <h3>Crop Tee</h3>
+            <p class="price">R180</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Jorts -->
+        <article class="product" data-id="jorts" data-name="Jorts (Black & Brown)" data-price="280">
+          <div class="img-wrap"><img src="images/jorts.jpg" alt="Jorts"></div>
+          <div class="meta">
+            <h3>Jorts</h3>
+            <p class="price">R280</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Hoodie -->
+        <article class="product" data-id="hoodie" data-name="Hoodie" data-price="350">
+          <div class="img-wrap"><img src="images/hoodie-back.jpg" alt="Hoodie"></div>
+          <div class="meta">
+            <h3>Hoodie</h3>
+            <p class="price">R350</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Tees -->
+        <article class="product" data-id="tees" data-name="Tees" data-price="200">
+          <div class="img-wrap"><img src="images/croptee-black.jpg" alt="Tees"></div>
+          <div class="meta">
+            <h3>Tees</h3>
+            <p class="price">R200</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Sweaters -->
+        <article class="product" data-id="sweater" data-name="Sweater" data-price="300">
+          <div class="img-wrap"><img src="images/hoodie-back.jpg" alt="Sweater"></div>
+          <div class="meta">
+            <h3>Sweater</h3>
+            <p class="price">R300</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Joggers -->
+        <article class="product" data-id="joggers" data-name="Joggers" data-price="250">
+          <div class="img-wrap"><img src="images/jorts.jpg" alt="Joggers"></div>
+          <div class="meta">
+            <h3>Joggers</h3>
+            <p class="price">R250</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <!-- Caps -->
+        <article class="product" data-id="fivecap" data-name="Five-panel Cap" data-price="150">
+          <div class="img-wrap"><img src="images/model-tee-jorts.jpg" alt="Cap"></div>
+          <div class="meta">
+            <h3>Five-panel cap</h3>
+            <p class="price">R150</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+        <article class="product" data-id="tracker" data-name="Tracker Cap" data-price="150">
+          <div class="img-wrap"><img src="images/model-tee-jorts.jpg" alt="Cap"></div>
+          <div class="meta">
+            <h3>Tracker cap</h3>
+            <p class="price">R150</p>
+            <button class="add-to-cart">Add to cart</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Cart Drawer -->
+  <aside id="cart" class="cart">
+    <div class="cart-header">
+      <h3>Your Cart</h3>
+      <button id="cart-close">Close</button>
+    </div>
+    <div id="cart-items" class="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="totals">
+        <span>Total:</span>
+        <strong id="cart-total">R0</strong>
+      </div>
+
+      <div class="checkout-actions">
+        <button id="payfast-btn" class="primary">Pay with PayFast</button>
+        <button id="checkout-btn" class="secondary">Checkout (placeholder)</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="overlay" class="overlay"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
