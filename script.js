@@ -27,7 +27,7 @@ function renderCart() {
     const el = document.createElement('div');
     el.className = 'cart-item';
     el.innerHTML = `
-      <img src="${item.img}" alt="${item.name}">
+      <img loading="lazy" src="${item.img}" alt="${item.name}">
       <div class="item-meta">
         <h4>${item.name}</h4>
         <div class="qty-controls">
