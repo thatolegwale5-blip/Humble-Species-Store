@@ -21,49 +21,49 @@ let cart = JSON.parse(localStorage.getItem('hs_cart') || '[]');
 // Color → image map (matches your real image filenames)
 const colorMap = {
   black: {
-    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "images/humble-species-hoodie.jpg",
+    back: "images/hoodie-back.jpg"
   },
   white: {
-    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "images/humble-species-hoodie.jpg",
+    back: "images/hoodie-back.jpg"
   },
   red: {
-    front: "HUMBLE%20SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "images/red-humble-species-hoodie.jpg",
+    back: "images/hoodie-back.jpg"
   },
   
   // Hoodie slides per color (model, design front, back)
   hoodie_slides: {
     black: [
-      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/hoodie-girls-from-another-planet-black.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/back-of-hoodie-girls-from-another-planet.jpg"
+      "images/humble-species-hoodie.jpg",
+      "images/hoodie-girls-from-another-planet-black.jpg",
+      "images/back-of-hoodie-girls-from-another-planet.jpg"
     ],
     white: [
-      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/hoodie.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+      "images/humble-species-hoodie.jpg",
+      "images/hoodie.jpg",
+      "images/hoodie-back.jpg"
     ],
     red: [
-      "HUMBLE%20SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-      "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+      "images/red-humble-species-hoodie.jpg",
+      "images/humble-species-hoodie.jpg",
+      "images/hoodie-back.jpg"
     ]
   },
   // Jorts color images
   jorts: {
-    black: "HUMBLE%20SPECIES/humble-species/images/jorts-black.jpg",
-    brown: "HUMBLE%20SPECIES/humble-species/images/jorts-brown.jpg"
+    black: "images/jorts-black.jpg",
+    brown: "images/jorts-brown.jpg"
   },
   // CAP IMAGES
   cap_black: {
-    front: "HUMBLE%20SPECIES/humble-species/images/panel-cap-black.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/panel-cap-red.jpg"
+    front: "images/panel-cap-black.jpg",
+    back: "images/panel-cap-red.jpg"
   },
   cap_red: {
-    front: "HUMBLE%20SPECIES/humble-species/images/panel-cap-red.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/panel-cap-black.jpg"
+    front: "images/panel-cap-red.jpg",
+    back: "images/panel-cap-black.jpg"
   }
 };
 
