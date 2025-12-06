@@ -168,7 +168,7 @@ function closeImageModal(){
 }
 
 // attach click to each product front image
-document.querySelectorAll('.product .front-img').forEach(img => {
+document.querySelectorAll('.product .front-img, .product .slider img').forEach(img => {
   img.style.cursor = 'zoom-in';
   img.addEventListener('click', e => {
     const product = img.closest('.product');
@@ -400,7 +400,18 @@ addBtns.forEach(btn => {
     const baseName = product.dataset.name;
     const price = Number(product.dataset.price);
 
-    const img = product.querySelector('.front-img').src;
+    // determine image to use for cart preview:
+    // 1) if hoodie and a color selected with hoodie_slides mapping, use its model image
+    // 2) if product has a slider, use the active slide
+    // 3) fallback to .front-img or first img
+    let img = '';
+    const selectedColor = product.dataset.selectedColor;
+    if (id === 'hoodie1' && selectedColor && colorMap.hoodie_slides && colorMap.hoodie_slides[selectedColor]){
+      img = colorMap.hoodie_slides[selectedColor][0];
+    } else {
+      const sliderImg = product.querySelector('.slider img.active') || product.querySelector('.slider img') || product.querySelector('.front-img') || product.querySelector('.slide') || product.querySelector('img');
+      img = sliderImg ? sliderImg.src : '';
+    }
     const color = product.dataset.selectedColor || null;
     const size = product.dataset.selectedSize || null;
 
