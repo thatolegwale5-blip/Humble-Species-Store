@@ -32,9 +32,24 @@ const colorMap = {
     front: "HUMBLE%20SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
     back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
   },
-  blue: {
-    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+  
+  // Hoodie slides per color (model, design front, back)
+  hoodie_slides: {
+    black: [
+      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/hoodie-girls-from-another-planet-black.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/back-of-hoodie-girls-from-another-planet.jpg"
+    ],
+    white: [
+      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/hoodie.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+    ],
+    red: [
+      "HUMBLE%20SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+      "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
+    ]
   },
   // Jorts color images
   jorts: {
@@ -62,10 +77,18 @@ const modal = document.getElementById('image-modal');
 const modalImg = document.getElementById('modal-img');
 const modalClose = document.getElementById('modal-close');
 const modalColors = document.getElementById('modal-colors');
+const modalPrev = document.getElementById('modal-prev');
+const modalNext = document.getElementById('modal-next');
 
 function getMappedImage(productId, color, side = 'front'){
   if (!color) return null;
   if (productId === 'hoodie1'){
+    // prefer hoodie_slides mapping for hoodies
+    const slides = (colorMap.hoodie_slides && colorMap.hoodie_slides[color]) || null;
+    if (slides){
+      if (side === 'back') return slides[2] || slides[0];
+      return slides[0] || slides[1] || null;
+    }
     const map = colorMap[color];
     if (!map) return null;
     return side === 'back' ? map.back : map.front;
@@ -86,8 +109,22 @@ function getMappedImage(productId, color, side = 'front'){
 
 function openImageModal(product){
   const pid = product.dataset.id;
-  const front = product.querySelector('.front-img');
-  const currentSrc = front ? front.src : '';
+  // prefer slider active image if present
+  const slider = product.querySelector('.slider');
+  let currentSrc = '';
+  if (slider){
+    const active = slider.querySelector('img.active') || slider.querySelector('img');
+    currentSrc = active ? active.src : '';
+    // expose slides for modal navigation
+    const s = Array.from(slider.querySelectorAll('img')).map(i=>i.src);
+    modal.dataset.slides = JSON.stringify(s);
+    modal.dataset.index = s.indexOf(currentSrc) >= 0 ? s.indexOf(currentSrc) : 0;
+  } else {
+    const front = product.querySelector('.front-img');
+    currentSrc = front ? front.src : '';
+    delete modal.dataset.slides;
+    modal.dataset.index = 0;
+  }
   modalImg.src = currentSrc;
 
   // build color dots in modal based on product color-options if present
@@ -98,9 +135,17 @@ function openImageModal(product){
       const clone = d.cloneNode(true);
       clone.addEventListener('click', () => {
         const color = clone.dataset.color;
-        // try to get mapped image
-        const mapped = getMappedImage(pid, color, 'front');
-        if (mapped) modalImg.src = mapped;
+        // hoodie special: if slides mapping exists, attach slides to modal
+        if (pid === 'hoodie1' && colorMap.hoodie_slides && colorMap.hoodie_slides[color]){
+          const slides = colorMap.hoodie_slides[color];
+          modal.dataset.slides = JSON.stringify(slides);
+          modal.dataset.index = 0;
+          modalImg.src = slides[0];
+        } else {
+          // try to get mapped image
+          const mapped = getMappedImage(pid, color, 'front');
+          if (mapped) modalImg.src = mapped;
+        }
         // visually mark active
         modalColors.querySelectorAll('.color-dot').forEach(x=>x.classList.remove('active-color'));
         clone.classList.add('active-color');
@@ -118,6 +163,8 @@ function closeImageModal(){
   modal.setAttribute('aria-hidden','true');
   modalImg.src = '';
   modalColors.innerHTML = '';
+  delete modal.dataset.slides;
+  delete modal.dataset.index;
 }
 
 // attach click to each product front image
@@ -134,6 +181,24 @@ modal && modal.addEventListener('click', e => {
   if (e.target === modal) closeImageModal();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeImageModal(); });
+
+// modal prev/next navigation when modal.dataset.slides is present
+modalPrev && modalPrev.addEventListener('click', ()=>{
+  if (!modal.dataset.slides) return;
+  const slides = JSON.parse(modal.dataset.slides);
+  let i = Number(modal.dataset.index || 0);
+  i = (i-1+slides.length)%slides.length;
+  modal.dataset.index = i;
+  modalImg.src = slides[i];
+});
+modalNext && modalNext.addEventListener('click', ()=>{
+  if (!modal.dataset.slides) return;
+  const slides = JSON.parse(modal.dataset.slides);
+  let i = Number(modal.dataset.index || 0);
+  i = (i+1)%slides.length;
+  modal.dataset.index = i;
+  modalImg.src = slides[i];
+});
 
 /* ============================
    INITIALIZE PRODUCTS
@@ -156,6 +221,32 @@ document.querySelectorAll('.product').forEach(product => {
       product.dataset.selectedSize = e.target.value;
     });
   }
+
+  // slider setup (if product has slides)
+  const slider = product.querySelector('.slider');
+  if (slider){
+    const slides = Array.from(slider.querySelectorAll('img'));
+    const prev = slider.querySelector('.slide-prev');
+    const next = slider.querySelector('.slide-next');
+    let idx = 0;
+    function show(i){
+      slides.forEach((s,si)=> s.classList.toggle('active', si===i));
+      slider.dataset.current = i;
+    }
+    show(0);
+    prev && prev.addEventListener('click', ()=>{ idx = (idx-1+slides.length)%slides.length; show(idx); });
+    next && next.addEventListener('click', ()=>{ idx = (idx+1)%slides.length; show(idx); });
+
+    // clicking a slide opens modal at that image
+    slides.forEach((s,i)=> s.addEventListener('click', ()=>{
+      openImageModal(product);
+      // set modal image to clicked slide
+      modalImg.src = s.src;
+      // store slides on modal for navigation
+      modal.dataset.slides = JSON.stringify(slides.map(x=>x.src));
+      modal.dataset.index = i;
+    }));
+  }
 });
 
 /* ============================
@@ -175,13 +266,25 @@ document.querySelectorAll('.color-dot').forEach(dot => {
     const back = product.querySelector('.back-img');
 
     // hoodie colors
-    if (product.dataset.id === "hoodie1") {
-      const map = colorMap[color];
-      if (map) {
-        front.src = map.front;
-        back.src = map.back;
+      if (product.dataset.id === "hoodie1") {
+        // if this product uses a slider, update its slides based on hoodie_slides
+        const slidesMap = colorMap.hoodie_slides && colorMap.hoodie_slides[color];
+        const slider = product.querySelector('.slider');
+        if (slidesMap && slider){
+          const imgs = Array.from(slider.querySelectorAll('img'));
+          imgs.forEach((img, i) => {
+            if (slidesMap[i]) img.src = slidesMap[i];
+          });
+          // show first (model) image by default
+          imgs.forEach((s,si)=> s.classList.toggle('active', si===0));
+        } else {
+          const map = colorMap[color];
+          if (map){
+            if (front) front.src = map.front;
+            if (back) back.src = map.back;
+          }
+        }
       }
-    }
 
       // jorts color handling
       if (product.dataset.id === "jorts1") {
