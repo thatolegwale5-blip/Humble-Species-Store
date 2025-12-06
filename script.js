@@ -21,34 +21,34 @@ let cart = JSON.parse(localStorage.getItem('hs_cart') || '[]');
 // Color → image map (matches your real image filenames)
 const colorMap = {
   black: {
-    front: "HUMBLE SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
   },
   white: {
-    front: "HUMBLE SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
   },
   red: {
-    front: "HUMBLE SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/red-humble-species-hoodie.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
   },
   blue: {
-    front: "HUMBLE SPECIES/humble-species/images/humble-species-hoodie.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/hoodie-back.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/humble-species-hoodie.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/hoodie-back.jpg"
   },
   // Jorts color images
   jorts: {
-    black: "HUMBLE SPECIES/humble-species/images/jorts-black.jpg",
-    brown: "HUMBLE SPECIES/humble-species/images/jorts-brown.jpg"
+    black: "HUMBLE%20SPECIES/humble-species/images/jorts-black.jpg",
+    brown: "HUMBLE%20SPECIES/humble-species/images/jorts-brown.jpg"
   },
   // CAP IMAGES
   cap_black: {
-    front: "HUMBLE SPECIES/humble-species/images/panel-cap-black.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/panel-cap-red.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/panel-cap-black.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/panel-cap-red.jpg"
   },
   cap_red: {
-    front: "HUMBLE SPECIES/humble-species/images/panel-cap-red.jpg",
-    back: "HUMBLE SPECIES/humble-species/images/panel-cap-black.jpg"
+    front: "HUMBLE%20SPECIES/humble-species/images/panel-cap-red.jpg",
+    back: "HUMBLE%20SPECIES/humble-species/images/panel-cap-black.jpg"
   }
 };
 
