@@ -67,6 +67,21 @@ const colorMap = {
   }
 };
 
+/* Image load diagnostics
+   - Attach an error handler to every image so missing files are logged
+   - Replace broken images with a small inline SVG placeholder so layout is visible
+*/
+document.addEventListener('DOMContentLoaded', () => {
+  const placeholder = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'><rect width='100%' height='100%' fill='%23f6f3ef'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%23333' font-size='16'>Image not found</text></svg>";
+  document.querySelectorAll('img').forEach(img => {
+    img.addEventListener('error', () => {
+      console.error('Image failed to load:', img.getAttribute('src'));
+      img.src = placeholder;
+      img.classList.add('broken-image');
+    });
+  });
+});
+
 /* ============================
    IMAGE MODAL HANDLING
    Clicking a product image opens a modal showing the image
